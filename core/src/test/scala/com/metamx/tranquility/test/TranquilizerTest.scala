@@ -298,7 +298,7 @@ class TranquilizerTest extends FunSuite with Matchers with Logging
           val e = the[BufferFullException] thrownBy {
             doSend(tranquilizer, messages)
           }
-          e.getMessage should be("Buffer full")
+          e.getMessage shouldBe("Buffer full")
       }
     }
   }

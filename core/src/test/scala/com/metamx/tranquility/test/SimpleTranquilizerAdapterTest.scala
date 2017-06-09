@@ -23,9 +23,9 @@ import com.metamx.common.scala.untyped._
 import com.metamx.tranquility.beam.MemoryBeam
 import com.metamx.tranquility.tranquilizer.MessageDroppedException
 import org.scalatest.FunSuite
-import org.scalatest.ShouldMatchers
+import org.scalatest.Matchers
 
-class SimpleTranquilizerAdapterTest extends FunSuite with ShouldMatchers
+class SimpleTranquilizerAdapterTest extends FunSuite with Matchers
 {
   test("Simple") {
     val sender = TranquilizerTest.newTranquilizer(TranquilizerTest.newImmediateMemoryBeam(), 100, 1, 0)._1.simple()
@@ -59,7 +59,7 @@ class SimpleTranquilizerAdapterTest extends FunSuite with ShouldMatchers
     val sender = TranquilizerTest.newTranquilizer(TranquilizerTest.newImmediateMemoryBeam(), 100, 1, 0)._1.simple(true)
 
     try {
-      a[MessageDroppedException] should be thrownBy {
+      a[MessageDroppedException] shouldBe thrownBy {
         MemoryBeam.clear()
         Seq("hey", "__drop__") foreach sender.send
         sender.flush()
@@ -75,7 +75,7 @@ class SimpleTranquilizerAdapterTest extends FunSuite with ShouldMatchers
     val sender = TranquilizerTest.newTranquilizer(TranquilizerTest.newImmediateMemoryBeam(), 100, 1, 0)._1.simple()
 
     try {
-      an[IllegalStateException] should be thrownBy {
+      an[IllegalStateException] shouldBe thrownBy {
         MemoryBeam.clear()
         Seq("hey", "__fail__") foreach sender.send
         sender.flush()

@@ -47,7 +47,7 @@ import com.metamx.tranquility.tranquilizer.Tranquilizer
 import com.metamx.tranquility.typeclass.DefaultJsonWriter
 import com.metamx.tranquility.typeclass.JavaObjectWriter
 import com.metamx.tranquility.typeclass.Timestamper
-import com.twitter.util._
+import com.twitter.util.{NonFatal => TwitterNonFatal,_}
 import java.io.ByteArrayInputStream
 import java.nio.ByteBuffer
 import java.{util => ju}
@@ -55,6 +55,7 @@ import javax.ws.rs.core.MediaType
 import org.apache.curator.framework.CuratorFramework
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
+import scala.util.control.NonFatal
 
 object DirectDruidTest
 {

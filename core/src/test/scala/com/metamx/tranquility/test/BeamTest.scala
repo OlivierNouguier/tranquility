@@ -32,10 +32,10 @@ import com.twitter.util.Return
 import com.twitter.util.Throw
 import org.scalatest.BeforeAndAfter
 import org.scalatest.FunSuite
-import org.scalatest.ShouldMatchers
+import org.scalatest.Matchers
 import scala.collection.immutable.BitSet
 
-class BeamTest extends FunSuite with BeforeAndAfter with ShouldMatchers with Logging
+class BeamTest extends FunSuite with BeforeAndAfter with Matchers with Logging
 {
   val Key  = "beep"
   val beam = FailableBeam.forDicts(new MemoryBeam[Dict](Key, new DefaultJsonWriter(Jackson.newObjectMapper())))
@@ -54,8 +54,8 @@ class BeamTest extends FunSuite with BeforeAndAfter with ShouldMatchers with Log
       )
     )
 
-    Await.result(future) should be(3)
-    MemoryBeam.get(Key).sortBy(d => String.valueOf(d("foo"))) should be(
+    Await.result(future) shouldBe(3)
+    MemoryBeam.get(Key).sortBy(d => String.valueOf(d("foo"))) shouldBe(
       Seq(
         Dict("foo" -> "bar"),
         Dict("foo" -> "baz"),
@@ -75,7 +75,7 @@ class BeamTest extends FunSuite with BeforeAndAfter with ShouldMatchers with Log
       )
     )
 
-    an[IllegalStateException] should be thrownBy {
+    an[IllegalStateException] shouldBe thrownBy {
       Await.result(future)
     }
   }
@@ -90,8 +90,8 @@ class BeamTest extends FunSuite with BeforeAndAfter with ShouldMatchers with Log
       )
     )
 
-    Await.result(future) should be(BitSet(0, 1, 3))
-    MemoryBeam.get(Key).sortBy(d => String.valueOf(d("foo"))) should be(
+    Await.result(future) shouldBe(BitSet(0, 1, 3))
+    MemoryBeam.get(Key).sortBy(d => String.valueOf(d("foo"))) shouldBe(
       Seq(
         Dict("foo" -> "bar"),
         Dict("foo" -> "baz"),
@@ -111,11 +111,11 @@ class BeamTest extends FunSuite with BeforeAndAfter with ShouldMatchers with Log
       )
     )
 
-    an[IllegalStateException] should be thrownBy {
+    an[IllegalStateException] shouldBe thrownBy {
       Await.result(future)
     }
 
-    MemoryBeam.get(Key).sortBy(d => String.valueOf(d("foo"))) should be(
+    MemoryBeam.get(Key).sortBy(d => String.valueOf(d("foo"))) shouldBe(
       Seq(
         Dict("foo" -> "bar"),
         Dict("foo" -> "baz"),
@@ -136,14 +136,14 @@ class BeamTest extends FunSuite with BeforeAndAfter with ShouldMatchers with Log
     )
 
     val results = Await.result(Future.collectToTry(futures))
-    results.size should be(5)
-    results(0) should be(Return(SendResult.Sent))
-    results(1) should be(Return(SendResult.Sent))
-    results(2) should be(Return(SendResult.Dropped))
+    results.size shouldBe(5)
+    results(0) shouldBe(Return(SendResult.Sent))
+    results(1) shouldBe(Return(SendResult.Sent))
+    results(2) shouldBe(Return(SendResult.Dropped))
     results(3) shouldBe a[Throw[_]]
     results(3).asInstanceOf[Throw[_]].e shouldBe an[IllegalStateException]
-    results(4) should be(Return(SendResult.Sent))
-    MemoryBeam.get(Key).sortBy(d => String.valueOf(d("foo"))) should be(
+    results(4) shouldBe(Return(SendResult.Sent))
+    MemoryBeam.get(Key).sortBy(d => String.valueOf(d("foo"))) shouldBe(
       Seq(
         Dict("foo" -> "bar"),
         Dict("foo" -> "baz"),

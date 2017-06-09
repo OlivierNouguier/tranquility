@@ -27,10 +27,10 @@ import io.druid.data.input.impl.TimestampSpec
 import io.druid.query.aggregation.LongSumAggregatorFactory
 import javax.ws.rs.core.MediaType
 import org.scalatest.FunSuite
-import org.scalatest.ShouldMatchers
+import org.scalatest.Matchers
 import scala.collection.JavaConverters._
 
-class InputRowObjectWriterTest extends FunSuite with ShouldMatchers
+class InputRowObjectWriterTest extends FunSuite with Matchers
 {
   val mapBasedRow = new MapBasedInputRow(
     new DateTime("2000"),
@@ -52,7 +52,7 @@ class InputRowObjectWriterTest extends FunSuite with ShouldMatchers
   )
 
   test("asBytes") {
-    Jackson.parse[Dict](objectWriter.asBytes(mapBasedRow)) should be(
+    Jackson.parse[Dict](objectWriter.asBytes(mapBasedRow)) shouldBe(
       Dict(
         "ts" -> new DateTime("2000").getMillis,
         "bar" -> 2,
@@ -63,7 +63,7 @@ class InputRowObjectWriterTest extends FunSuite with ShouldMatchers
   }
 
   test("batchAsBytes") {
-    Jackson.parse[Seq[Dict]](objectWriter.batchAsBytes(Seq(mapBasedRow))) should be(
+    Jackson.parse[Seq[Dict]](objectWriter.batchAsBytes(Seq(mapBasedRow))) shouldBe(
       Seq(
         Dict(
           "ts" -> new DateTime("2000").getMillis,
@@ -76,6 +76,6 @@ class InputRowObjectWriterTest extends FunSuite with ShouldMatchers
   }
 
   test("contentType") {
-    objectWriter.contentType should be("application/json")
+    objectWriter.contentType shouldBe("application/json")
   }
 }

@@ -29,9 +29,9 @@ import com.metamx.tranquility.typeclass.Timestamper
 import org.joda.time.DateTime
 import org.joda.time.Period
 import org.scalatest.FunSuite
-import org.scalatest.ShouldMatchers
+import org.scalatest.Matchers
 
-class TranquilityConfigTest extends FunSuite with ShouldMatchers
+class TranquilityConfigTest extends FunSuite with Matchers
 {
   val DataSource = "foo"
 
@@ -42,18 +42,18 @@ class TranquilityConfigTest extends FunSuite with ShouldMatchers
     )
 
     val dataSourceConfigs = config.dataSourceConfigs
-    dataSourceConfigs.keySet should be(Set(DataSource))
+    dataSourceConfigs.keySet shouldBe(Set(DataSource))
 
     val fooConfig = dataSourceConfigs(DataSource)
-    fooConfig.propertiesBasedConfig.zookeeperConnect should be("zk.example.com")
-    fooConfig.propertiesBasedConfig.taskPartitions should be(3)
-    fooConfig.propertiesBasedConfig.druidBeamConfig.firehoseGracePeriod should be(new Period("PT5M"))
+    fooConfig.propertiesBasedConfig.zookeeperConnect shouldBe "zk.example.com"
+    fooConfig.propertiesBasedConfig.taskPartitions shouldEqual 3
+    fooConfig.propertiesBasedConfig.druidBeamConfig.firehoseGracePeriod shouldBe new Period("PT5M")
 
     for (builder <- makeBuilders(fooConfig.specMap)) {
-      builder.config._location.get.dataSource should be(DataSource)
-      builder.config._rollup.get.aggregators.map(_.getName) should be(Seq("count", "x"))
-      builder.config._rollup.get.isRollup should be(false)
-      builder.config._druidTuningMap.get should be(Dict(
+      builder.config._location.get.dataSource shouldBe(DataSource)
+      builder.config._rollup.get.aggregators.map(_.getName) shouldBe(Seq("count", "x"))
+      builder.config._rollup.get.isRollup shouldBe(false)
+      builder.config._druidTuningMap.get shouldBe(Dict(
         "type" -> "realtime",
         "maxRowsInMemory" -> 100000,
         "buildV9Directly" -> true,
@@ -61,7 +61,7 @@ class TranquilityConfigTest extends FunSuite with ShouldMatchers
         "windowPeriod" -> "PT30S",
         "maxPendingPersists" -> 0
       ))
-      builder.config._tuning.get.windowPeriod should be(new Period("PT30S"))
+      builder.config._tuning.get.windowPeriod shouldBe(new Period("PT30S"))
     }
   }
 
@@ -72,18 +72,18 @@ class TranquilityConfigTest extends FunSuite with ShouldMatchers
     )
 
     val dataSourceConfigs = config.dataSourceConfigs
-    dataSourceConfigs.keySet should be(Set(DataSource))
+    dataSourceConfigs.keySet shouldBe(Set(DataSource))
 
     val fooConfig = dataSourceConfigs(DataSource)
-    fooConfig.propertiesBasedConfig.zookeeperConnect should be("zk.example.com")
-    fooConfig.propertiesBasedConfig.taskPartitions should be(3)
-    fooConfig.propertiesBasedConfig.druidBeamConfig.firehoseGracePeriod should be(new Period("PT5M"))
+    fooConfig.propertiesBasedConfig.zookeeperConnect shouldEqual "zk.example.com"
+    fooConfig.propertiesBasedConfig.taskPartitions shouldBe 3
+    fooConfig.propertiesBasedConfig.druidBeamConfig.firehoseGracePeriod shouldBe(new Period("PT5M"))
 
     for (builder <- makeBuilders(fooConfig.specMap)) {
-      builder.config._location.get.dataSource should be(DataSource)
-      builder.config._rollup.get.aggregators.map(_.getName) should be(Seq("count", "x"))
-      builder.config._rollup.get.isRollup should be(false)
-      builder.config._druidTuningMap.get should be(Dict(
+      builder.config._location.get.dataSource shouldBe(DataSource)
+      builder.config._rollup.get.aggregators.map(_.getName) shouldEqual Seq("count", "x")
+      builder.config._rollup.get.isRollup shouldBe false
+      builder.config._druidTuningMap.get shouldBe(Dict(
         "type" -> "realtime",
         "maxRowsInMemory" -> 100000,
         "buildV9Directly" -> true,
@@ -91,7 +91,7 @@ class TranquilityConfigTest extends FunSuite with ShouldMatchers
         "windowPeriod" -> "PT30S",
         "maxPendingPersists" -> 0
       ))
-      builder.config._tuning.get.windowPeriod should be(new Period("PT30S"))
+      builder.config._tuning.get.windowPeriod shouldBe(new Period("PT30S"))
     }
   }
 
@@ -102,17 +102,17 @@ class TranquilityConfigTest extends FunSuite with ShouldMatchers
     )
 
     val dataSourceConfigs = config.dataSourceConfigs
-    dataSourceConfigs.keySet should be(Set(DataSource))
+    dataSourceConfigs.keySet shouldBe(Set(DataSource))
 
     val fooConfig = dataSourceConfigs(DataSource)
-    fooConfig.propertiesBasedConfig.zookeeperConnect should be("zk.example.com")
-    fooConfig.propertiesBasedConfig.taskPartitions should be(3)
-    fooConfig.propertiesBasedConfig.druidBeamConfig.firehoseGracePeriod should be(new Period("PT5M"))
+    fooConfig.propertiesBasedConfig.zookeeperConnect shouldBe("zk.example.com")
+    fooConfig.propertiesBasedConfig.taskPartitions shouldBe(3)
+    fooConfig.propertiesBasedConfig.druidBeamConfig.firehoseGracePeriod shouldBe(new Period("PT5M"))
 
     for (builder <- makeBuilders(fooConfig.specMap)) {
-      builder.config._location.get.dataSource should be(DataSource)
-      builder.config._rollup.get.aggregators.map(_.getName) should be(Seq("count", "x"))
-      builder.config._druidTuningMap.get should be(Dict(
+      builder.config._location.get.dataSource shouldBe(DataSource)
+      builder.config._rollup.get.aggregators.map(_.getName) shouldBe(Seq("count", "x"))
+      builder.config._druidTuningMap.get shouldBe(Dict(
         "type" -> "realtime",
         "maxRowsInMemory" -> 100000,
         "buildV9Directly" -> true,
@@ -120,7 +120,7 @@ class TranquilityConfigTest extends FunSuite with ShouldMatchers
         "windowPeriod" -> "PT30S",
         "maxPendingPersists" -> 0
       ))
-      builder.config._tuning.get.windowPeriod should be(new Period("PT30S"))
+      builder.config._tuning.get.windowPeriod shouldBe(new Period("PT30S"))
     }
   }
 
@@ -131,24 +131,24 @@ class TranquilityConfigTest extends FunSuite with ShouldMatchers
     )
 
     val dataSourceConfigs = config.dataSourceConfigs
-    dataSourceConfigs.keySet should be(Set(DataSource))
+    dataSourceConfigs.keySet shouldBe(Set(DataSource))
 
     val fooConfig = dataSourceConfigs(DataSource)
-    fooConfig.propertiesBasedConfig.zookeeperConnect should be("zk.example.com")
-    fooConfig.propertiesBasedConfig.taskPartitions should be(3)
-    fooConfig.propertiesBasedConfig.druidBeamConfig.firehoseGracePeriod should be(new Period("PT5M"))
+    fooConfig.propertiesBasedConfig.zookeeperConnect shouldBe("zk.example.com")
+    fooConfig.propertiesBasedConfig.taskPartitions shouldBe(3)
+    fooConfig.propertiesBasedConfig.druidBeamConfig.firehoseGracePeriod shouldBe(new Period("PT5M"))
 
     for (builder <- makeBuilders(fooConfig.specMap)) {
-      builder.config._location.get.dataSource should be(DataSource)
-      builder.config._rollup.get.aggregators.map(_.getName) should be(Seq("count", "x"))
-      builder.config._druidTuningMap.get should be(Dict(
+      builder.config._location.get.dataSource shouldBe(DataSource)
+      builder.config._rollup.get.aggregators.map(_.getName) shouldBe(Seq("count", "x"))
+      builder.config._druidTuningMap.get shouldBe(Dict(
         "type" -> "realtime",
         "maxRowsInMemory" -> 75000,
         "buildV9Directly" -> false,
         "intermediatePersistPeriod" -> "PT10M",
         "maxPendingPersists" -> 0
       ))
-      builder.config._tuning.get.windowPeriod should be(new Period("PT10M"))
+      builder.config._tuning.get.windowPeriod shouldBe(new Period("PT10M"))
     }
   }
 

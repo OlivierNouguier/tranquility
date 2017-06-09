@@ -22,10 +22,10 @@ package com.metamx.tranquility.druid.input
 import io.druid.data.input.MapBasedInputRow
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
-import org.scalatest.ShouldMatchers
+import org.scalatest.Matchers
 import scala.collection.JavaConverters._
 
-class InputRowTimestamperTest extends FunSuite with ShouldMatchers
+class InputRowTimestamperTest extends FunSuite with Matchers
 {
   val row = new MapBasedInputRow(
     new DateTime("2000"),
@@ -41,6 +41,6 @@ class InputRowTimestamperTest extends FunSuite with ShouldMatchers
   val timestamper = InputRowTimestamper.Instance
 
   test("timestamp") {
-    timestamper.timestamp(row) should be(new DateTime("2000"))
+    timestamper.timestamp(row) shouldBe(new DateTime("2000"))
   }
 }

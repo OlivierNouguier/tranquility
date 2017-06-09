@@ -26,18 +26,18 @@ import io.druid.query.aggregation.AggregatorFactory
 import io.druid.query.aggregation.LongSumAggregatorFactory
 import java.util.Properties
 import org.scalatest.FunSuite
-import org.scalatest.ShouldMatchers
+import org.scalatest.Matchers
 import scala.collection.JavaConverters._
 
-class DruidGuicerTest extends FunSuite with ShouldMatchers
+class DruidGuicerTest extends FunSuite with Matchers
 {
   test("Default ExtensionsConfig") {
     val guicer = new DruidGuicer(new Properties)
     val extensionsConfig = guicer.get[ExtensionsConfig]
-    extensionsConfig.getLoadList should be(null)
-    extensionsConfig.getDirectory should be("extensions")
-    extensionsConfig.getHadoopDependenciesDir should be("hadoop-dependencies")
-    extensionsConfig.searchCurrentClassloader should be(true)
+    extensionsConfig.getLoadList shouldBe(null)
+    extensionsConfig.getDirectory shouldBe("extensions")
+    extensionsConfig.getHadoopDependenciesDir shouldBe("hadoop-dependencies")
+    extensionsConfig.searchCurrentClassloader shouldBe(true)
   }
 
   test("Overridden ExtensionsConfig") {
@@ -50,10 +50,10 @@ class DruidGuicerTest extends FunSuite with ShouldMatchers
       }
     )
     val extensionsConfig = guicer.get[ExtensionsConfig]
-    extensionsConfig.getLoadList.asScala should be(Nil)
-    extensionsConfig.getDirectory should be("/opt/druid/ext")
-    extensionsConfig.getHadoopDependenciesDir should be("/opt/druid/hadoop")
-    extensionsConfig.searchCurrentClassloader should be(false)
+    extensionsConfig.getLoadList.asScala shouldBe(Nil)
+    extensionsConfig.getDirectory shouldBe("/opt/druid/ext")
+    extensionsConfig.getHadoopDependenciesDir shouldBe("/opt/druid/hadoop")
+    extensionsConfig.searchCurrentClassloader shouldBe(false)
   }
 
   test("AggregatorFactory serde") {
@@ -62,6 +62,6 @@ class DruidGuicerTest extends FunSuite with ShouldMatchers
       guicer.objectMapper.writeValueAsBytes(new LongSumAggregatorFactory("foo", "bar")),
       classOf[AggregatorFactory]
     )
-    aggregator should be(new LongSumAggregatorFactory("foo", "bar"))
+    aggregator shouldBe(new LongSumAggregatorFactory("foo", "bar"))
   }
 }
