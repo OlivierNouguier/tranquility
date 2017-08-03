@@ -8,10 +8,12 @@ parallelExecution in Test := false
 
 concurrentRestrictions in Global += Tags.limitAll(1)
 
+resolvers in ThisBuild +=     Resolver.bintrayRepo("tabmo", "maven")
+
 val jacksonOneVersion = "1.9.13"
 // See https://github.com/druid-io/druid/pull/1669, https://github.com/druid-io/tranquility/pull/81 before upgrading Jackson
-val jacksonTwoVersion = "2.8.8"
-val jacksonTwoModuleScalaVersion = "2.8.8"
+val jacksonTwoVersion = "2.4.6"
+val jacksonTwoModuleScalaVersion = "2.4.6"
 val druidVersion = "0.9.2"
 val curatorVersion = "2.12.0"
 val guiceVersion = "4.0"
